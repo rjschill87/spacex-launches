@@ -71,30 +71,39 @@ function Launches({ launches }) {
     return list;
   }, {});
 
+  const isEven = number => number % 2 === 0;
+
+  let num = 0;
+
   return (
     <ul data-testid="launches" className="timeline timeline-variant">
       {Object.keys(launchesByDate).map(launchDate => (
         <span key={launchDate}>
           <li className="timeline-month">{launchDate}</li>
-          {launchesByDate[launchDate].map(launch => (
-            <Launch key={launch.flight_number} launch={launch} />
-          ))}
+          {launchesByDate[launchDate].map(launch => {
+            num++;
+            return (
+              <Launch key={launch.flight_number} launch={launch} side={isEven(num) ? 'right' : 'left'}/>
+            );
+          })}
         </span>
       ))}
     </ul>
   );
 }
 
-function Launch({ launch }) {
+function Launch({ launch, side }) {
   const launchIcon = launch.launch_success ? (
     <i className="icon mdi mdi-rocket" />
   ) : (
     <i className="icon mdi mdi-bomb" />
   );
 
+  const iconType = launch.launch_success ? 'success' :  'failure';
+
   return (
-    <li className="timeline-item timeline-item-detailed right">
-      <div className="timeline-content timeline-type file">
+    <li className={`timeline-item timeline-item-detailed ${side}`}>
+      <div className={`timeline-content timeline-type file ${iconType}`}>
         <div className="timeline-icon">{launchIcon}</div>
 
         <div className="timeline-header">
