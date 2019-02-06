@@ -13,5 +13,8 @@
 .timeline-summary iframe {
   display: block;
   width: 100%;
+}
+
+.timeline-summary > *:not(:last-child) {
   margin: 20px 0;
 }

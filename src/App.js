@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { GraphQLClient } from 'graphql-request';
 import { useEffect, useState } from 'react';
-import YouTube from 'react-youtube';
+import Launch from './components/Launch';
 
 const launchesQuery = `{
   launches(sort: "launch_date_utc", order: "ASC") {
@@ -93,48 +93,6 @@ function Launches({ launches }) {
         </span>
       ))}
     </ul>
-  );
-}
-
-function Launch({ launch, side }) {
-  const launchIcon = launch.launch_success ? (
-    <i className="icon mdi mdi-rocket" />
-  ) : (
-    <i className="icon mdi mdi-bomb" />
-  );
-
-  const iconType = launch.launch_success ? 'success' :  'failure';
-
-  const getYouTubeVideoID = link => {
-    const regExp = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|&v(?:i)?=))([^#&?]*).*/;
-    const match = link.match(regExp);
-    return match[1];
-  }
-
-  return (
-    <li className={`timeline-item timeline-item-detailed ${side}`}>
-      <div className={`timeline-content timeline-type file ${iconType}`}>
-        <div className="timeline-icon">{launchIcon}</div>
-
-        <div className="timeline-header">
-          <span className="timeline-autor">
-            #{launch.id}: {launch.mission_name}
-          </span>{' '}
-          <p className="timeline-activity">
-            {launch.rocket.rocket_name} &mdash; {launch.launch_site.site_name}
-          </p>
-          <span className="timeline-time">{launch.launch_date_utc.slice(0, 10)}</span>
-        </div>
-        <div className="timeline-summary">
-          {launch.links.video_link !== null && (
-            <YouTube
-              videoId={getYouTubeVideoID(launch.links.video_link)}
-            />
-          )}
-          <p>{launch.details}</p>
-        </div>
-      </div>
-    </li>
   );
 }
 
