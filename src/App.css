@@ -9,3 +9,9 @@
 .failure .timeline-icon {
   background-color: #ea4335;
 }
+
+.timeline-summary iframe {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+}

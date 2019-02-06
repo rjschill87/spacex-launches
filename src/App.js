@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { GraphQLClient } from 'graphql-request';
 import { useEffect, useState } from 'react';
+import YouTube from 'react-youtube';
 
 const launchesQuery = `{
   launches(sort: "launch_date_utc", order: "ASC") {
@@ -14,6 +15,9 @@ const launchesQuery = `{
     }
     rocket {
       rocket_name
+    }
+    links {
+      video_link
     }
     details
   }
@@ -101,6 +105,12 @@ function Launch({ launch, side }) {
 
   const iconType = launch.launch_success ? 'success' :  'failure';
 
+  const getYouTubeVideoID = link => {
+    const regExp = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|&v(?:i)?=))([^#&?]*).*/;
+    const match = link.match(regExp);
+    return match[1];
+  }
+
   return (
     <li className={`timeline-item timeline-item-detailed ${side}`}>
       <div className={`timeline-content timeline-type file ${iconType}`}>
@@ -116,6 +126,11 @@ function Launch({ launch, side }) {
           <span className="timeline-time">{launch.launch_date_utc.slice(0, 10)}</span>
         </div>
         <div className="timeline-summary">
+          {launch.links.video_link !== null && (
+            <YouTube
+              videoId={getYouTubeVideoID(launch.links.video_link)}
+            />
+          )}
           <p>{launch.details}</p>
         </div>
       </div>
