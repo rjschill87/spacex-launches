@@ -83,7 +83,7 @@ function Launches({ launches }) {
           {launchesByDate[launchDate].map(launch => {
             num++;
             return (
-              <Launch key={launch.flight_number} launch={launch} side={isEven(num) ? 'right' : 'left'}/>
+              <Launch key={launch.id} launch={launch} side={isEven(num) ? 'right' : 'left'}/>
             );
           })}
         </span>
