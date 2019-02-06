@@ -4,7 +4,7 @@ import { GraphQLClient } from 'graphql-request';
 import { useEffect, useState } from 'react';
 
 const launchesQuery = `{
-  launches {
+  launches(sort: "launch_date_utc", order: "ASC") {
     id
     launch_success
     mission_name
