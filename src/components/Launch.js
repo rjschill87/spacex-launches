@@ -59,7 +59,7 @@ export default function Launch({ launch, side }) {
             />
           )}
           {commentsDisplayed && (
-            <Comments key={launch.id} flightNumber={launch.id} />
+            <Comments key={launch.id} flightNumber={parseInt(launch.id)} />
           )}
         </div>
       </div>
