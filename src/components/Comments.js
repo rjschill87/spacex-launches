@@ -64,7 +64,7 @@ function Comment({ comment }) {
   const description = parseCommentForHTML(comment.body);
   const date = formatDate(comment.date);
   return (
-    <li key={comment.id} className="latest">
+    <li className="latest">
       <div className="user-timeline-date">{date}</div>
       <div className="user-timeline-title">{comment.author}</div>
       <div className="user-timeline-description">{description}</div>
@@ -97,7 +97,7 @@ function CommentList({ comments, token, flightNumber }) {
     <div className="card-body">
       <ul className="user-timeline user-timeline-compact">
         {comms.map(comment => (
-          <Comment comment={comment} />
+          <Comment key={comment.id} comment={comment} />
         ))}
       </ul>
       {nextToken !== null && (
